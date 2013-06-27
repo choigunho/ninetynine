@@ -1,4 +1,4 @@
-import random
+import random, itertools
 import unittest
 
 class PrologLists(unittest.TestCase):
@@ -39,6 +39,40 @@ class PrologLists(unittest.TestCase):
 		self.assertEquals([5,4,3,2,1], reverseList([1,2,3,4,5]))
 		self.assertEquals([10,5,4,3,1], reverseList([1,3,4,5,10]))
 
+	def test_1_6(self):
+		def palindrome(li):
+			return li == li[::-1]
+
+		self.assertEquals(False, palindrome([1,2,3,4,5]))
+		self.assertEquals(True, palindrome([1,2,3,2,1]))
+
+	def test_1_7(self):
+		def my_flatten(li):
+			rst = []
+
+			for item in li:
+				if isinstance(item, list):
+					rst += my_flatten(item)
+				else:
+					rst.append(item)
+			return rst
+
+		self.assertEquals([1,2,3], my_flatten([1,[2,3]]))
+		self.assertEquals([1,2,3,4,5], my_flatten([1,[2,[3,4],5]]))
+
+	def test_1_8(self):
+		def compress(li):
+			return [k for k, i in itertools.groupby(li)]
+
+		self.assertEquals([1,2,3,4,5], compress([1,1,1,1,2,2,2,3,3,3,3,3,3,3,4,4,5]))
+
+	def test_1_9(self):
+		def pack(li):
+			return [list(i) for k, i in itertools.groupby(li)]
+
+		self.assertEquals([[1,1,1,1],[2,2,2],[3],[4,4,4],[5]], pack([1,1,1,1,2,2,2,3,4,4,4,5]))
+
+
 	def test_1_23(self):
 		def rnd_select(li, cnt):
 			res = []
@@ -47,16 +81,12 @@ class PrologLists(unittest.TestCase):
 				rnd = random.choice(li)
 				res.append(rnd)
 				li.remove(rnd)
-				#print rnd, li, res
-			print "This is solution for 1_23 :",res
+			#print "This is solution for 1_23 :",res
 
 		rnd_select([1,2,3,4,5], 3)
 	
-	def test_1_24(self):
-		pass #print "a"
-
-		#self.assertEquals(, rnd_select([1,2,3,4,5], 3))
 
 	
 if __name__ == "__main__":
-	unittest.main()		
+	suite = unittest.TestLoader().loadTestsFromTestCase(PrologLists)
+	unittest.TextTestRunner(verbosity=2).run(suite)
