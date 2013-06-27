@@ -72,6 +72,11 @@ class PrologLists(unittest.TestCase):
 
 		self.assertEquals([[1,1,1,1],[2,2,2],[3],[4,4,4],[5]], pack([1,1,1,1,2,2,2,3,4,4,4,5]))
 
+	def test_1_10(self):
+		def encode(li):
+			return [[len(list(i)), k] for k, i in itertools.groupby(li)]
+
+		self.assertEquals([[3,1],[2,2],[5,3],[2,1],[3,5]], encode([1,1,1,2,2,3,3,3,3,3,1,1,5,5,5]))
 
 	def test_1_23(self):
 		def rnd_select(li, cnt):
