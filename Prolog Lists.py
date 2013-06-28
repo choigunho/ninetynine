@@ -78,6 +78,29 @@ class PrologLists(unittest.TestCase):
 
 		self.assertEquals([[3,1],[2,2],[5,3],[2,1],[3,5]], encode([1,1,1,2,2,3,3,3,3,3,1,1,5,5,5]))
 
+	def test_1_11(self):
+		def encode_modified(li):
+			rst = []
+
+			for k, i in itertools.groupby(li):
+				v = list(i)
+				rst.append(v[0] if len(v) == 1 else [len(v), k])
+			return rst
+
+		self.assertEquals([[3, 1], [2, 2], 3, [2, 4], [3, 5]], encode_modified([1,1,1,2,2,3,4,4,5,5,5]))
+
+	def test_1_12(self):
+		def decode(li):
+			rst = []
+
+			for i in li:
+				rst.extend(i[1]*i[0] if isinstance(i, list) else i) 
+			return rst
+
+		self.assertEquals(['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'], decode([[4, 'a'], 'b', [2, 'c'], [2, 'a'], 'd', [4, 'e']]))
+
+
+
 	def test_1_23(self):
 		def rnd_select(li, cnt):
 			res = []
