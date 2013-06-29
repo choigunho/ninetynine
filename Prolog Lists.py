@@ -99,6 +99,28 @@ class PrologLists(unittest.TestCase):
 
 		self.assertEquals(['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e'], decode([[4, 'a'], 'b', [2, 'c'], [2, 'a'], 'd', [4, 'e']]))
 
+	def test_1_14(self):
+		def dupli(li):
+			rst = []
+
+			for i in li:
+				rst.extend(i+i)
+			return rst
+
+		self.assertEquals(['a', 'a', 'b', 'b', 'c', 'c', 'c', 'c', 'd', 'd'], dupli(['a','b','c','c','d']))
+
+	def test_1_15(self):
+		def dupli2(li, cnt):
+			return [i for i in li for _ in range(cnt)]
+
+		self.assertEquals(['a', 'a', 'a', 'c', 'c', 'c', 'b', 'b', 'b'], dupli2(['a','c','b'], 3))
+
+	def test_1_16(self):
+		def drop(li, n):
+			del li[2::n]
+			return li
+
+		self. assertEquals(['a', 'b', 'd', 'e', 'g', 'h', 'k'], drop(['a','b','c','d','e','f','g','h','i','k'],3))
 
 
 	def test_1_23(self):
