@@ -120,9 +120,45 @@ class PrologLists(unittest.TestCase):
 			del li[2::n]
 			return li
 
-		self. assertEquals(['a', 'b', 'd', 'e', 'g', 'h', 'k'], drop(['a','b','c','d','e','f','g','h','i','k'],3))
+		self.assertEquals(['a', 'b', 'd', 'e', 'g', 'h', 'k'], drop(['a','b','c','d','e','f','g','h','i','k'],3))
+
+	def test_1_17(self):
+		def split(l, i):
+			return l[:i], l[i:]
+
+		self.assertEqual((['a','b','c'],['d','e','f','g','h','i','k']), split(['a','b','c','d','e','f','g','h','i','k'],3))
 
 
+	def test_1_18(self):
+		def slice(l, i, j):
+			return l[i-1:j]
+
+		self.assertEqual((['c','d','e','f','g']), slice(['a','b','c','d','e','f','g','h','i','k'],3,7))
+
+	def test_1_19(self):
+		def rotate(l, i):
+			return l[i:]+l[:i]
+
+		self.assertEquals(['d', 'e', 'f', 'g', 'h', 'a', 'b', 'c'], rotate(['a','b','c','d','e','f','g','h'],3))
+		self.assertEquals(['g', 'h', 'a', 'b', 'c', 'd', 'e', 'f'], rotate(['a','b','c','d','e','f','g','h'],-2))
+
+	def test_1_20(self):
+		def remove_at(l, n):
+			del l[n-1]
+
+	def test_1_21(self):
+		def insert_at(d, li, p):
+			li.insert(p-1, d)
+			return li
+
+		self.assertEquals(['a', 'alfa', 'b', 'c', 'd'], insert_at('alfa',['a','b','c','d'],2))
+
+	def test_1_22(self):
+		def _range(s, e):
+			return [i for i in range(s, e+1)]
+		
+		self.assertEquals([4, 5, 6, 7, 8, 9], _range(4,9))
+		
 	def test_1_23(self):
 		def rnd_select(li, cnt):
 			res = []
