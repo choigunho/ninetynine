@@ -158,7 +158,7 @@ class PrologLists(unittest.TestCase):
 			return [i for i in range(s, e+1)]
 		
 		self.assertEquals([4, 5, 6, 7, 8, 9], _range(4,9))
-		
+
 	def test_1_23(self):
 		def rnd_select(li, cnt):
 			res = []
@@ -171,7 +171,20 @@ class PrologLists(unittest.TestCase):
 
 		rnd_select([1,2,3,4,5], 3)
 	
+	def test_1_24(self):
+		def rnd_select2(cnt, rng):
+			lotto = [i for i in range(1, rng+1)]
+			rst = []
 
+			for i in range(cnt):
+				rnd = random.choice(lotto)
+				rst.append(rnd)
+				lotto.remove(rnd)
+			return rst
+
+		print rnd_select2(6, 49)
+
+	
 	
 if __name__ == "__main__":
 	suite = unittest.TestLoader().loadTestsFromTestCase(PrologLists)
