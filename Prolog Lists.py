@@ -182,7 +182,7 @@ class PrologLists(unittest.TestCase):
 				lotto.remove(rnd)
 			return rst
 
-		print rnd_select2(6, 49)
+		# print "This is solution for 1_24 :", rnd_select2(6, 49)
 
 	'''
 	1.25 (*) Generate a random permutation of the elements of a list.
@@ -193,7 +193,18 @@ class PrologLists(unittest.TestCase):
 		Hint: Use the solution of problem 1.23.
 	'''
 	def test_1_25(self):
-		print "aaa"
+		def rnd_select(li):
+			res = []
+
+			for i in range(len(li)):
+				rnd = random.choice(li)
+				res.append(rnd)
+				li.remove(rnd)
+		
+			# print "This is solution for 1_25 :", res
+
+		rnd_select([1,2,3,4,5])
+		
 	
 	
 if __name__ == "__main__":
